@@ -106,6 +106,7 @@ namespace Zaipay
             //         }
             //     };
             // });
+
             services.AddSwaggerGen(c =>
             {
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -175,9 +176,16 @@ namespace Zaipay
             if (env.IsDevelopment())
             {
             }
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Zaipay v1"));
+            app.UseDeveloperExceptionPage();
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Zaipay v1"));
+
+            app.UseReDoc(options =>
+            {
+                options.DocumentTitle = $"Zaipay v1 Docs";
+                options.SpecUrl = $"/swagger/v1/swagger.json";
+                options.RoutePrefix = $"api/docs/v1";
+            });
 
             app.UseHttpsRedirection();
 
